@@ -1,7 +1,7 @@
 # Doc-nft-minter
 
 # Demo
-https://soft-kataifi-905e9f.netlify.app
+https://rococo-bublanina-1e585a.netlify.app
 
 #Description
 
