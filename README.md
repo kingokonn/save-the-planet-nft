@@ -1,7 +1,7 @@
 # Doc-nft-minter
 
 # Demo
-https://rococo-bublanina-1e585a.netlify.app
+https://stupendous-boba-50c3ae.netlify.app
 
 # Description
 
