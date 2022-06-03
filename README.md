@@ -5,4 +5,4 @@ https://soft-kataifi-905e9f.netlify.app
 
 #Description
 
-Doc-nft-minter is a unique Dapp where the owner can use the Dapp to mint documents into a form of NFT to show other parties as evidence of ownership of properties. It also has a transfer function that can facilitate the transfer of the NFT Document to another address. But only the owner of the contract can see the transfer button or to mint button.
+Save the planet is dapp where people pay 5 cUSD to mint a save-the-planet NFT and the proceeds will go different organizations that aim to save the planet from various pullutions. After successfull minting, you will be given a Save-the-planet NFT with your name and your message to the world.
