@@ -19,13 +19,13 @@ interface IERC20Token {
   event Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
-contract MyNFT is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract SavePlanetNFT is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
      address internal cUsdTokenAddress = 0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1;
 
     Counters.Counter private _tokenIdCounter;
 
-    constructor() ERC721("DocNFT", "DNFT") {}
+    constructor() ERC721("SaveNFT", "SNFT") {}
 
     function safeMint(address to, string memory uri) public onlyOwner {
         uint256 tokenId = _tokenIdCounter.current();
@@ -34,7 +34,7 @@ contract MyNFT is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         _setTokenURI(tokenId, uri);
     }
 
-  
+
    function payToMint(
         address receiver,
         uint ammount,

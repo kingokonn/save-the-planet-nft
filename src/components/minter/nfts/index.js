@@ -9,8 +9,7 @@ import { NotificationSuccess, NotificationError } from "../../ui/Notifications";
 import {
   getNfts,
   createNft,
-  fetchNftContractOwner,
-  transferNFT,
+  fetchNftContractOwner
 } from "../../../utils/minter";
 import { Row } from "react-bootstrap";
 
@@ -26,13 +25,18 @@ const NftList = ({minterContract, name}) => {
 
   const getAssets = useCallback(async () => {
     try {
-      setLoading(true);
+      if(minterContract){
+        setLoading(true);
 
-      // fetch all nfts from the smart contract
-      const allNfts = await getNfts(minterContract);
-      if (!allNfts) return
-      setNfts(allNfts);
+        // fetch all nfts from the smart contract
+        const allNfts = await getNfts(minterContract);
+        console.log({allNfts, minterContract})
+        if (!allNfts) return
+        setNfts(allNfts);
+      }
+
     } catch (error) {
+      console.log("here!!")
       console.log({ error });
     } finally {
       setLoading(false);
@@ -53,7 +57,7 @@ const NftList = ({minterContract, name}) => {
     } finally {
 
       setLoading(false);
-      
+
     }
   };
 
@@ -94,7 +98,7 @@ const NftList = ({minterContract, name}) => {
               {nfts.map((_nft) => (
                   <Nft
                       key={_nft.index}
-                    
+
                       nft={{
                         ..._nft,
 
