@@ -32,20 +32,22 @@ export const createNft = async (
             // IPFS url for uploaded metadata
             const url = `https://ipfs.infura.io/ipfs/${added.path}`;
 
-            const price = ethers.utils.parseUnits(String(5), "ether");
+            const price = ethers.utils.parseUnits(String(1), "ether");
       console.log(price);
 
-      const cUSDContract = new kit.web3.eth.Contract(IERC20Token, cUSDContractAddress);
+      const cUSDContract = new kit.web3.eth.Contract(IERC20Token.abi, cUSDContractAddress);
       await cUSDContract.methods
-        .approve((MyNFT, price)
-        .send({ from: defaultAccount }));
+        .approve(MyNFT.MyNFT, price)
+          .send({ from: defaultAccount })
 
       const _address = await fetchNftContractOwner(minterContract);
+            console.log({minterContract})
 
             // mint the NFT and save the IPFS url to the blockchain
             let transaction = await minterContract.methods
                 .payToMint(_address, price, url)
-                .send({from: defaultAccount});
+                .send({ from: defaultAccount })
+            console.log({transaction})
             return transaction;
         } catch (error) {
             console.log("Error uploading file: ", error);
@@ -79,7 +81,7 @@ export const getNfts = async (minterContract) => {
             const nft = new Promise(async (resolve) => {
                 const res = await minterContract.methods.tokenURI(i).call();
                 const meta = await fetchNftMeta(res);
-                const owner = await fetchNftOwner(minterContract, i);                
+                const owner = await fetchNftOwner(minterContract, i);
                 resolve({
                     index: i,
                     owner,

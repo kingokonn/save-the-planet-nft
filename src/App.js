@@ -25,6 +25,7 @@ const App = function AppWrapper() {
 
     // initialize the NFT mint contract
     const minterContract = useMinterContract();
+    console.log({minterContract, address})
 
     return (
         <>
