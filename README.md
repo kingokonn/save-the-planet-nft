@@ -1,7 +1,7 @@
 # Doc-nft-minter
 
 # Demo
-https://stupendous-boba-50c3ae.netlify.app
+https://silver-douhua-52308f.netlify.app
 
 # Description
 
