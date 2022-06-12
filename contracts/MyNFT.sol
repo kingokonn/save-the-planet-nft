@@ -7,55 +7,28 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-interface IERC20Token {
-  function transfer(address, uint256) external returns (bool);
-  function approve(address, uint256) external returns (bool);
-  function transferFrom(address, address, uint256) external returns (bool);
-  function totalSupply() external view returns (uint256);
-  function balanceOf(address) external view returns (uint256);
-  function allowance(address, address) external view returns (uint256);
-
-  event Transfer(address indexed from, address indexed to, uint256 value);
-  event Approval(address indexed owner, address indexed spender, uint256 value);
-}
 
 contract MyNFT is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
-     address internal cUsdTokenAddress = 0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1;
 
     Counters.Counter private _tokenIdCounter;
 
-    constructor() ERC721("DocNFT", "DNFT") {}
+    constructor() ERC721("SaveThePlanetNFT", "STPNFT") {}
 
-    function safeMint(address to, string memory uri) public onlyOwner {
+    function safeMint(string memory uri) public payable {
         uint256 tokenId = _tokenIdCounter.current();
+        address cOwner = owner(); 
         _tokenIdCounter.increment();
-        _safeMint(to, tokenId);
+        _safeMint(msg.sender, tokenId);
         _setTokenURI(tokenId, uri);
+        payable(cOwner).transfer(msg.value);
     }
 
-  
-   function payToMint(
-        address receiver,
-        uint ammount,
-        string memory uri
-    ) public payable returns(uint256) {
-        require(
-          IERC20Token(cUsdTokenAddress).transferFrom(
-            msg.sender,
-            receiver,
-            ammount
-          ),
-          "Transfer failed."
-        );
-
-        uint256 newItemId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
-
-        _mint(msg.sender, newItemId);
-        _setTokenURI(newItemId, uri);
-
-        return newItemId;
+    function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
+        public
+        onlyOwner
+    {
+        mintBatch(to, ids, amounts, data);
     }
 
 

@@ -42,12 +42,7 @@ function storeContractData(contract) {
     JSON.stringify(MyNFTArtifact, null, 2)
   );
 
-  const IERCArtifact = artifacts.readArtifactSync("IERC20Token");
-
-  fs.writeFileSync(
-    contractsDir + "/IERC20Token.json",
-    JSON.stringify(IERCArtifact, null, 2)
-  );
+  
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -26,7 +26,7 @@ ReactDOM.render(
       }}
       dapp={{
         name: 'Save the planet.',
-        description: 'Save your planet with 5 cUSD.',
+        description: 'Save your planet with 1 Celo.',
         url: 'https://dacade.org',
       }}
     >

@@ -10,7 +10,6 @@ import {
   getNfts,
   createNft,
   fetchNftContractOwner,
-  transferNFT,
 } from "../../../utils/minter";
 import { Row } from "react-bootstrap";
 
@@ -26,12 +25,15 @@ const NftList = ({minterContract, name}) => {
 
   const getAssets = useCallback(async () => {
     try {
-      setLoading(true);
+      if(minterContract){
+        setLoading(true);
 
-      // fetch all nfts from the smart contract
-      const allNfts = await getNfts(minterContract);
-      if (!allNfts) return
-      setNfts(allNfts);
+        // fetch all nfts from the smart contract
+        const allNfts = await getNfts(minterContract);
+        console.log({allNfts, minterContract})
+        if (!allNfts) return
+        setNfts(allNfts);
+      }
     } catch (error) {
       console.log({ error });
     } finally {

@@ -1,14 +1,12 @@
 import {create as ipfsHttpClient} from "ipfs-http-client";
-import { useContractKit } from "@celo-tools/use-contractkit";
-import MyNFT from "../contracts/MyNFT-address.json";
-import IERC20Token from "../contracts/IERC20Token.json";
 import axios from "axios";
-import { BigNumber, ethers } from "ethers";
-import Web3 from "web3";
+import { ethers } from "ethers";
+
+
+
 
 // initialize IPFS
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
-const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1";
 
 // mint an NFT
 export const createNft = async (
@@ -32,20 +30,14 @@ export const createNft = async (
             // IPFS url for uploaded metadata
             const url = `https://ipfs.infura.io/ipfs/${added.path}`;
 
-            const price = ethers.utils.parseUnits(String(5), "ether");
+            const price = ethers.utils.parseUnits(String(1), "ether");
       console.log(price);
 
-      const cUSDContract = new kit.web3.eth.Contract(IERC20Token, cUSDContractAddress);
-      await cUSDContract.methods
-        .approve((MyNFT, price)
-        .send({ from: defaultAccount }));
-
-      const _address = await fetchNftContractOwner(minterContract);
-
+              
             // mint the NFT and save the IPFS url to the blockchain
             let transaction = await minterContract.methods
-                .payToMint(_address, price, url)
-                .send({from: defaultAccount});
+                .safeMint(url)
+                .send({from: defaultAccount, value: price});
             return transaction;
         } catch (error) {
             console.log("Error uploading file: ", error);
