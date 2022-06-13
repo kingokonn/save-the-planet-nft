@@ -5,7 +5,7 @@ import { truncateAddress } from "../../../utils";
 import Identicon from "../../ui/Identicon";
 
 
-const NftCard = ({ nft, isOwner}) => {
+const NftCard = ({ nft, isOwner, removeNFT}) => {
   const { description, owner, name, index } = nft;
 
   return (
@@ -30,7 +30,15 @@ const NftCard = ({ nft, isOwner}) => {
         <Card.Body className="d-flex  flex-column text-center">
           <Card.Title>{name}</Card.Title>
           <Card.Text className="flex-grow-1">{description}</Card.Text>
-          
+          {isOwner === true && (
+            <div className="d-flex m-2 justify-content-center">
+              <button onClick={removeNFT} className= "btn btn-primary"
+            >
+              Remove this Nft
+              </button>
+              
+            </div>
+          )}
         </Card.Body>
       </Card>
     </Col>

@@ -5,6 +5,7 @@ import { ethers } from "ethers";
 
 
 
+
 // initialize IPFS
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
@@ -38,7 +39,11 @@ export const createNft = async (
             let transaction = await minterContract.methods
                 .safeMint(url)
                 .send({from: defaultAccount, value: price});
-            return transaction;
+            
+
+
+        return transaction;
+
         } catch (error) {
             console.log("Error uploading file: ", error);
         }
@@ -66,15 +71,16 @@ export const uploadToIpfs = async (e) => {
 export const getNfts = async (minterContract) => {
     try {
         const nfts = [];
-        const nftsLength = await minterContract.methods.totalSupply().call();
+        const nftsLength = await minterContract.methods.getNFTlength().call();
         for (let i = 0; i < Number(nftsLength); i++) {
             const nft = new Promise(async (resolve) => {
-                const res = await minterContract.methods.tokenURI(i).call();
+                const stp = await minterContract.methods.getSavetheplanetNFTS(i).call();
+                const res = await minterContract.methods.tokenURI(stp.tokenId).call();
                 const meta = await fetchNftMeta(res);
                 const owner = await fetchNftOwner(minterContract, i);                
                 resolve({
                     index: i,
-                    owner,
+                    owner: meta.data.owner,
                     name: meta.data.name,
                     description: meta.data.description,
                 });
@@ -86,6 +92,9 @@ export const getNfts = async (minterContract) => {
         console.log({e});
     }
 };
+
+
+
 
 // get the metedata for an NFT from IPFS
 export const fetchNftMeta = async (ipfsUrl) => {
@@ -117,4 +126,27 @@ export const fetchNftContractOwner = async (minterContract) => {
         console.log({e});
     }
 };
+
+
+export const removeNFT = async (
+    minterContract,
+    performActions,
+    index,
+  ) => {
+    try {
+      await performActions(async (kit) => {
+        try {
+          console.log(minterContract, index);
+          const { defaultAccount } = kit;
+          await minterContract.methods
+            .removeNFT(index)
+            .send({from: defaultAccount});
+        } catch (error) {
+          console.log({ error });
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 

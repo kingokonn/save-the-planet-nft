@@ -10,6 +10,7 @@ import {
   getNfts,
   createNft,
   fetchNftContractOwner,
+  removeNFT,
 } from "../../../utils/minter";
 import { Row } from "react-bootstrap";
 
@@ -60,6 +61,27 @@ const NftList = ({minterContract, name}) => {
   };
 
 
+  const remove = async (index) => {
+    try {
+      setLoading(true);
+
+      await removeNFT(
+        minterContract,
+        performActions,
+        index
+      );
+
+      toast(<NotificationSuccess text="Updating NFT list...." />);
+      getAssets();
+    } catch (error) {
+      console.log({ error });
+      toast(<NotificationError text="Failed to remove an NFT." />);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   const fetchContractOwner = useCallback(async (minterContract) => {
     // get the address that deployed the NFT contract
     const _address = await fetchNftContractOwner(minterContract);
@@ -96,7 +118,7 @@ const NftList = ({minterContract, name}) => {
               {nfts.map((_nft) => (
                   <Nft
                       key={_nft.index}
-                    
+                      removeNFT={() => remove(_nft.index)}
                       nft={{
                         ..._nft,
 
