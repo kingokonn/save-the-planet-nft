@@ -33,7 +33,7 @@ contract MyNFT is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         _tokenIdCounter.increment();
         _safeMint(msg.sender, tokenId);
         _setTokenURI(tokenId, uri);
-        payable(cOwner).transfer(msg.value); // tranferring the celo fee for minting multiple savetheplanet nft.
+        payable(cOwner).transfer(msg.value); // tranferring the celo ammount for minting multiple savetheplanet nft.
         listNFT(tokenId);// listing the nft 
     }
 
