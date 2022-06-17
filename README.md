@@ -1,7 +1,7 @@
 # Doc-nft-minter
 
 # Demo
-https://silver-douhua-52308f.netlify.app
+https://earnest-maamoul-c1a968.netlify.app
 
 # Description
 
