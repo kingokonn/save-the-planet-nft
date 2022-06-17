@@ -1,7 +1,7 @@
 # Doc-nft-minter
 
 # Demo
-https://earnest-maamoul-c1a968.netlify.app
+https://courageous-toffee-f65b49.netlify.app
 
 # Description
 
