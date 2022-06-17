@@ -37,7 +37,7 @@ export const createNft = async (
               
             // mint the NFT and save the IPFS url to the blockchain
             let transaction = await minterContract.methods
-                .safeMint(url)
+                .mint(url)
                 .send({from: defaultAccount, value: price});
             
 

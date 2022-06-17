@@ -27,7 +27,8 @@ contract MyNFT is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
 
 // minting save the planet nft
-     function safeMint(string memory uri) public payable {
+     
+    function mint(string memory uri) public payable {
         uint256 tokenId = _tokenIdCounter.current();
         address cOwner = owner(); 
         _tokenIdCounter.increment();
